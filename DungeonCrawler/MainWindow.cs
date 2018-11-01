@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DungeonCrawler.Classes;
 
 namespace DungeonCrawler
 {
@@ -20,12 +21,12 @@ namespace DungeonCrawler
             pnlDungeon.Paint += pnlDungeon_Paint;
         }
 
-        private static class Globals
-        {
-            public static Dungeon Dungeon { get; set; }
-            public static Player Player { get; set; }
-            public static bool GameStarted { get; set; }
-        }
+        //private static class Globals
+        //{
+        //    public static Dungeon Dungeon { get; set; }
+        //    public static Player Player { get; set; }
+        //    public static bool GameStarted { get; set; }
+        //}
 
         private void pnlDungeon_Paint(object sender, PaintEventArgs e)
         {
@@ -33,7 +34,7 @@ namespace DungeonCrawler
             {
                 Graphics g = e.Graphics;
                 DrawDungeon(g, Globals.Dungeon);
-                DrawCharacterLocation(g, Globals.Player.CurrentLocation);
+                DrawCharacterLocation(g, Globals.Player.CurrentRoom.Coordinates);
             }
         }
 
@@ -45,12 +46,17 @@ namespace DungeonCrawler
 
             using (StreamReader r = new StreamReader(firionaVie))
             {
-                string json = r.ReadToEnd();
-                Dungeon dungeon = JsonConvert.DeserializeObject<Dungeon>(json);
+                var json = r.ReadToEnd();
+                var dungeon = JsonConvert.DeserializeObject<Dungeon>(json);
                 Globals.Dungeon = dungeon;
                 Globals.GameStarted = true;
                 pnlDungeon.Invalidate();
             }
+        }
+
+        private void LoadDungeon()
+        {
+
         }
 
         public abstract class GameObject
@@ -64,57 +70,57 @@ namespace DungeonCrawler
             }
         }
 
-        public class Dungeon : GameObject
-        {
-            public string Name { get; }
-            public List<Room> Rooms { get; }
+        //public class Dungeon : GameObject
+        //{
+        //    public string Name { get; }
+        //    public List<Room> Rooms { get; }
 
-            public Dungeon(string name, List<Room> rooms)
-            {
-                //ID = Guid.NewGuid();
-                Name = name;
-                Rooms = rooms;
+        //    public Dungeon(string name, List<Room> rooms)
+        //    {
+        //        //ID = Guid.NewGuid();
+        //        Name = name;
+        //        Rooms = rooms;
 
-                Dungeons.Add(this);
-            }
-        }
+        //        Dungeons.Add(this);
+        //    }
+        //}
 
-        public class Room : GameObject
-        {
-            private static readonly Random RandomNumber = new Random();
+        //public class Room : GameObject
+        //{
+        //    private static readonly Random RandomNumber = new Random();
 
-            //public Guid ID { get; }
-            public Tuple<int, int> Coordinates { get; }
-            public bool IsStartingLocation { get; }
-            public bool HasNorthernWall { get; }
-            public bool HasEasternWall { get; }
-            public bool HasSouthernWall { get; }
-            public bool HasWesternWall { get; }
-            public List<Being> Beings { get; }
+        //    //public Guid ID { get; }
+        //    public Tuple<int, int> Coordinates { get; }
+        //    public bool IsStartingLocation { get; }
+        //    public bool HasNorthernWall { get; }
+        //    public bool HasEasternWall { get; }
+        //    public bool HasSouthernWall { get; }
+        //    public bool HasWesternWall { get; }
+        //    public List<Being> Beings { get; }
 
-            public Room(Tuple<int, int> coordinates, bool isStartingLocation, bool hasNorthernWall, bool hasEasternWall, bool hasSouthernWall, bool hasWesternWall)
-            {
-                //ID = Guid.NewGuid();
-                Coordinates = coordinates;
-                IsStartingLocation = isStartingLocation;
-                HasNorthernWall = hasNorthernWall;
-                HasEasternWall = hasEasternWall;
-                HasSouthernWall = hasSouthernWall;
-                HasWesternWall = hasWesternWall;
+        //    public Room(Tuple<int, int> coordinates, bool isStartingLocation, bool hasNorthernWall, bool hasEasternWall, bool hasSouthernWall, bool hasWesternWall)
+        //    {
+        //        //ID = Guid.NewGuid();
+        //        Coordinates = coordinates;
+        //        IsStartingLocation = isStartingLocation;
+        //        HasNorthernWall = hasNorthernWall;
+        //        HasEasternWall = hasEasternWall;
+        //        HasSouthernWall = hasSouthernWall;
+        //        HasWesternWall = hasWesternWall;
 
-                Beings = new List<Being>();
+        //        Beings = new List<Being>();
 
-                //if (IsStartingLocation)
-                //{
-                //    Beings.Add(new Player("Test", 1, 100, 100, 0));
-                //}
+        //        //if (IsStartingLocation)
+        //        //{
+        //        //    Beings.Add(new Player("Test", 1, 100, 100, 0));
+        //        //}
 
-                for (var i = 0; i <= RandomNumber.Next(0, 3); i++)
-                {
-                    Beings.Add(new Monster(i.ToString(), 1, 20, 20));
-                }
-            }
-        }
+        //        for (var i = 0; i <= RandomNumber.Next(0, 3); i++)
+        //        {
+        //            Beings.Add(new Monster(i.ToString(), 1, 20, 20));
+        //        }
+        //    }
+        //}
 
         public abstract class Being : GameObject
         {
@@ -139,91 +145,91 @@ namespace DungeonCrawler
             }
         }
 
-        
-        private class Player : Being
-        {
-            private int Experience { get; }
-            public Tuple<int, int> CurrentLocation { get; private set; }
-            //public Dungeon Dungeon { get; set; }
-            //private Being Target { get; set; }
 
-            public Player(string name, int level, int currentHp, int maximumHp, int experience) : base(name, level, currentHp, maximumHp)
-            {
-                Experience = experience;
-            }
+        //private class Player : Being
+        //{
+        //    private int Experience { get; }
+        //    public Tuple<int, int> CurrentLocation { get; private set; }
+        //public Dungeon Dungeon { get; set; }
+        //private Being Target { get; set; }
 
-            public void MoveNorth()
-            {
-                if (!CurrentRoom.HasNorthernWall)
-                    Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1, CurrentLocation.Item2 - 1);
-            }
+        //public Player(string name, int level, int currentHp, int maximumHp, int experience) : base(name, level, currentHp, maximumHp)
+        //{
+        //    Experience = experience;
+        //}
 
-            public void MoveEast()
-            {
-                var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
+        //public void MoveNorth()
+        //{
+        //    if (!CurrentRoom.HasNorthernWall)
+        //        Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1, CurrentLocation.Item2 - 1);
+        //}
 
-                if (room != null && !room.HasEasternWall)
-                    Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1 + 1, CurrentLocation.Item2);
-            }
+        //public void MoveEast()
+        //{
+        //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
 
-            public void MoveSouth()
-            {
-                var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
+        //    if (room != null && !room.HasEasternWall)
+        //        Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1 + 1, CurrentLocation.Item2);
+        //}
 
-                if (room != null && !room.HasSouthernWall)
-                    Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1, CurrentLocation.Item2 + 1);
-            }
+        //public void MoveSouth()
+        //{
+        //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
 
-            public void MoveWest()
-            {
-                var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
+        //    if (room != null && !room.HasSouthernWall)
+        //        Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1, CurrentLocation.Item2 + 1);
+        //}
 
-                if (room != null && !room.HasWesternWall)
-                    Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1 - 1, CurrentLocation.Item2);
-            }
+        //public void MoveWest()
+        //{
+        //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
 
-            //public DataTable LookAroundRoom()
-            //{
-            //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => Equals(r.Coordinates, CurrentLocation));
-            //    //List<string> targets = new List<string>();
-            //    var table = new DataTable();
-            //    table.Columns.Add("Target Name", typeof(string));
-            //    table.Columns.Add("Target Object", typeof(Being));
+        //    if (room != null && !room.HasWesternWall)
+        //        Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1 - 1, CurrentLocation.Item2);
+        //}
 
-            //    if (room == null) return table;
-            //    foreach (var being in room.Beings.Where(b => b.GetType() == typeof(Monster)))
-            //    {
-            //        var monster = (Monster) being;
-            //        table.Rows.Add(monster.Name, monster);
-            //        //targets.Add(monster.Name);
-            //    }
+        //public DataTable LookAroundRoom()
+        //{
+        //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => Equals(r.Coordinates, CurrentLocation));
+        //    //List<string> targets = new List<string>();
+        //    var table = new DataTable();
+        //    table.Columns.Add("Target Name", typeof(string));
+        //    table.Columns.Add("Target Object", typeof(Being));
 
-            //    return table;
-            //}
+        //    if (room == null) return table;
+        //    foreach (var being in room.Beings.Where(b => b.GetType() == typeof(Monster)))
+        //    {
+        //        var monster = (Monster) being;
+        //        table.Rows.Add(monster.Name, monster);
+        //        //targets.Add(monster.Name);
+        //    }
 
-            // I think this should be split into two methods:
-            // 1. Set the monster as the target.
-            // 2. Return monster data.
-            //public Being TargetMonster(ListControl lst)
-            //{
-            //    var target = (Being)lst.SelectedValue;
-            //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
-            //    Target = room.Beings.FirstOrDefault(b => b.ID.Equals(target.ID));
+        //    return table;
+        //}
 
-            //    return Target;
-            //}
-        }
+        // I think this should be split into two methods:
+        // 1. Set the monster as the target.
+        // 2. Return monster data.
+        //public Being TargetMonster(ListControl lst)
+        //{
+        //    var target = (Being)lst.SelectedValue;
+        //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
+        //    Target = room.Beings.FirstOrDefault(b => b.ID.Equals(target.ID));
 
-        private class Monster : Being
-        {
-            public Monster(string name, int level, int maximumHp, int currentHp) : base(name, level, maximumHp, currentHp)
-            {
-                Name = $"Monster {name}";
-                Level = level;
-                MaximumHp = maximumHp;
-                CurrentHp = currentHp;
-            }
-        }
+        //    return Target;
+        //}
+        //}
+
+        //private class Monster : Being
+        //{
+        //    public Monster(string name, int level, int maximumHp, int currentHp) : base(name, level, maximumHp, currentHp)
+        //    {
+        //        Name = $"Monster {name}";
+        //        Level = level;
+        //        MaximumHp = maximumHp;
+        //        CurrentHp = currentHp;
+        //    }
+        //}
 
         //public class CharacterLocationMap : IEnumerable<KeyValuePair<Player, Room>>
         //{
@@ -253,9 +259,9 @@ namespace DungeonCrawler
         //    //room.Monsters.Remove(monster);
         //}
 
-        private void DrawCharacterLocation(Graphics g, Tuple<int, int> characterLocation)
+        private void DrawCharacterLocation(Graphics g, Coordinates characterLocation)
         {
-            var point = new Point(characterLocation.Item1 * 50 + 10, characterLocation.Item2 * 50 + 10);
+            var point = new Point(characterLocation.LocX * 50 + 10, characterLocation.LocY * 50 + 10);
             var size = new Size(30, 30);
             var brush = new SolidBrush(Color.Green);
             var rectangle = new Rectangle(point, size);
@@ -265,34 +271,34 @@ namespace DungeonCrawler
 
         private void DrawRoom(Graphics g, Room r)
         {
-            Room room = r;
-            int xCoordinate = room.Coordinates.Item1;
-            int yCoordinate = room.Coordinates.Item2;
+            var room = r;
+            int locX = room.Coordinates.LocX;
+            int locY = room.Coordinates.LocY;
 
-            if (((xCoordinate >= 0) && (xCoordinate <= 5)) && ((yCoordinate >= 0) && (yCoordinate <= 6)))
+            if ((locX >= 0) && (locX <= 5) && (locY >= 0) && (locY <= 6))
             {
                 var wallPen = new Pen(Color.Black, 1);
                 var doorPen = new Pen(Color.White, 1);
 
                 if (room.HasNorthernWall)
-                    g.DrawLine(wallPen, xCoordinate * 50, yCoordinate * 50, xCoordinate * 50 + 49, yCoordinate * 50);
+                    g.DrawLine(wallPen, locX * 50, locY * 50, locX * 50 + 49, locY * 50);
                 else if (!room.HasNorthernWall)
-                    g.DrawLine(doorPen, xCoordinate * 50 + 1, yCoordinate * 50, xCoordinate * 50 + 49, yCoordinate * 50);                
+                    g.DrawLine(doorPen, locX * 50 + 1, locY * 50, locX * 50 + 49, locY * 50);                
 
                 if (room.HasEasternWall)
-                    g.DrawLine(wallPen, xCoordinate * 50 + 49, yCoordinate * 50, xCoordinate * 50 + 49, yCoordinate * 50 + 49);
+                    g.DrawLine(wallPen, locX * 50 + 49, locY * 50, locX * 50 + 49, locY * 50 + 49);
                 else if (!room.HasEasternWall)
-                    g.DrawLine(doorPen, xCoordinate * 50 + 49, yCoordinate * 50 + 1, xCoordinate * 50 + 49, yCoordinate * 50 + 49);       
+                    g.DrawLine(doorPen, locX * 50 + 49, locY * 50 + 1, locX * 50 + 49, locY * 50 + 49);       
 
                 if (room.HasSouthernWall)
-                    g.DrawLine(wallPen, xCoordinate * 50, yCoordinate * 50 + 49, xCoordinate * 50 + 49, yCoordinate * 50 + 49);
+                    g.DrawLine(wallPen, locX * 50, locY * 50 + 49, locX * 50 + 49, locY * 50 + 49);
                 else if (!room.HasSouthernWall)
-                    g.DrawLine(doorPen, xCoordinate * 50 + 1, yCoordinate * 50 + 49, xCoordinate * 50 + 48, yCoordinate * 50 + 49);                
+                    g.DrawLine(doorPen, locX * 50 + 1, locY * 50 + 49, locX * 50 + 48, locY * 50 + 49);                
 
                 if (room.HasWesternWall)
-                    g.DrawLine(wallPen, xCoordinate * 50, yCoordinate * 50, xCoordinate * 50, yCoordinate * 50 + 49);
+                    g.DrawLine(wallPen, locX * 50, locY * 50, locX * 50, locY * 50 + 49);
                 else if (!room.HasWesternWall)
-                    g.DrawLine(doorPen, xCoordinate * 50, yCoordinate * 50 + 1, xCoordinate * 50, yCoordinate * 50 + 48);                
+                    g.DrawLine(doorPen, locX * 50, locY * 50 + 1, locX * 50, locY * 50 + 48);                
             }
         }
 
@@ -313,11 +319,12 @@ namespace DungeonCrawler
 
             var name = frm.PlayerName;
             var dungeon = frm.SelectedDungeon;
+            var currentRoom = dungeon.GetStartingRoom();
 
-            var player = new Player(name, 1, 100, 100, 0);
-            dungeon.Rooms.FirstOrDefault(r => r.IsStartingLocation)?.Beings.Add(player);
+            var player = new Player(name, 100, currentRoom);
+            //dungeon.Rooms.FirstOrDefault(r => r.IsStartingLocation)?.Beings.Add(player);
 
-            PopulateCharacterInfo(player);
+            //PopulateCharacterInfo(player);
 
             Globals.Player = player;
             Globals.Dungeon = dungeon;
@@ -347,28 +354,28 @@ namespace DungeonCrawler
         private void btnNorth_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveNorth();
-            PopulateCharacterInfo(Globals.Player);
+            //PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
         private void btnEast_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveEast();
-            PopulateCharacterInfo(Globals.Player);
+            //PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
         private void btnSouth_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveSouth();
-            PopulateCharacterInfo(Globals.Player);
+            //PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
         private void btnWest_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveWest();
-            PopulateCharacterInfo(Globals.Player);
+            //PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 

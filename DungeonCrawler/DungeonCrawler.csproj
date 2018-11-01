@@ -52,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Coordinates.cs" />
+    <Compile Include="Classes\Dungeon.cs" />
+    <Compile Include="Classes\Globals.cs" />
+    <Compile Include="Classes\IBeing.cs" />
+    <Compile Include="Classes\Player.cs" />
+    <Compile Include="Classes\Room.cs" />
     <Compile Include="FrmNewGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +89,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="Maps\Harry Potter%27s Revenge.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\The Hunt for Firiona Vie.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\The Legend of Zelda.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -97,6 +112,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

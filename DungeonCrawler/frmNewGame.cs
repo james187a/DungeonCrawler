@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using static DungeonCrawler.FrmMainWindow;
+using DungeonCrawler.Classes;
 
 namespace DungeonCrawler
 {
@@ -20,7 +21,7 @@ namespace DungeonCrawler
 
         private void frmCreateCharacter_Load(object sender, EventArgs e)
         {
-            const string folderPath = @"C:\Users\james\Desktop\Dungeon Maps\";
+            const string folderPath = @"Maps\";
             var table = new DataTable();
 
             table.Columns.Add("Dungeon Name", typeof(string));

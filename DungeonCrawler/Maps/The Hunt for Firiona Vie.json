@@ -1,0 +1,251 @@
+{
+  "Name": "The Hunt for Firiona Vie",
+  "StartingLocation": {
+    "Coordinates": {
+      "LocX": 0,
+      "LocY": 0
+    }
+  },
+  "Rooms": [
+    {
+      "Coordinates": {
+        "LocX": 0,
+        "LocY": 0
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 1,
+        "LocY": 0
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 2,
+        "LocY": 0
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": false,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 3,
+        "LocY": 0
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 3,
+        "LocY": 0
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 4,
+        "LocY": 0
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": false,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 5,
+        "LocY": 0
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": true,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 2,
+        "LocY": 1
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 4,
+        "LocY": 1
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 2,
+        "LocY": 2
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 4,
+        "LocY": 2
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 3,
+        "LocY": 2
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": false,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 3,
+        "LocY": 3
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 3,
+        "LocY": 4
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 2,
+        "LocY": 4
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 4,
+        "LocY": 4
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": true,
+      "HasSouthernWall": false,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 0,
+        "LocY": 5
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 1,
+        "LocY": 5
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 2,
+        "LocY": 5
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 4,
+        "LocY": 5
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": false,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 5,
+        "LocY": 5
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": true,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "LocX": 0,
+        "LocY": 6
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": true,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 3,
+        "LocY": 6
+      },
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "LocX": 4,
+        "LocY": 6
+      },
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    }
+ ]
+}

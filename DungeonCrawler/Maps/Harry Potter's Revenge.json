@@ -1,0 +1,148 @@
+{
+  "Name": "Harry Potter's Revenge",
+  "Rooms": [
+    {
+      "Coordinates": {
+        "Item1": 5,
+        "Item2": 0
+      },
+      "IsStartingLocation": true,
+      "HasNorthernWall": true,
+      "HasEasternWall": true,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "Item1": 4,
+        "Item2": 0
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "Item1": 4,
+        "Item2": 1
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "Item1": 4,
+        "Item2": 2
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": false,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "Item1": 4,
+        "Item2": 3
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": true,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "Item1": 3,
+        "Item2": 2
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "Item1": 2,
+        "Item2": 2
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "Item1": 1,
+        "Item2": 1
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": true,
+      "HasEasternWall": true,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "Item1": 1,
+        "Item2": 2
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": false,
+      "HasEasternWall": false,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "Item1": 1,
+        "Item2": 3
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "Item1": 1,
+        "Item2": 4
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": false,
+      "HasWesternWall": true
+    },
+    {
+      "Coordinates": {
+        "Item1": 1,
+        "Item2": 5
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": false,
+      "HasEasternWall": true,
+      "HasSouthernWall": true,
+      "HasWesternWall": false
+    },
+    {
+      "Coordinates": {
+        "Item1": 0,
+        "Item2": 5
+      },
+      "IsStartingLocation": false,
+      "HasNorthernWall": true,
+      "HasEasternWall": false,
+      "HasSouthernWall": true,
+      "HasWesternWall": true
+    }
+  ]
+}
