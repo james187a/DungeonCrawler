@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,16 +8,16 @@ using System.Windows.Forms;
 
 namespace DungeonCrawler
 {
-    public partial class frmMainWindow : Form
+    public partial class FrmMainWindow : Form
     {
-        public frmMainWindow()
+        public FrmMainWindow()
         {
             InitializeComponent();
         }
 
         private void frmMainWindow_Load(object sender, EventArgs e)
         {
-            pnlDungeon.Paint += new PaintEventHandler(pnlDungeon_Paint);
+            pnlDungeon.Paint += pnlDungeon_Paint;
         }
 
         private static class Globals
@@ -38,11 +37,11 @@ namespace DungeonCrawler
             }
         }
 
-        public void StartGame()
+        private void StartGame()
         {
-            string harryPotter = @"C:\Users\james\Desktop\Harry Potter's Revenge.json";
-            string zelda = @"C:\Users\james\Desktop\The Legend of Zelda.json";
-            string firionaVie = @"C:\Users\james\Desktop\The Hunt for Firiona Vie.json";
+            var harryPotter = @"C:\Users\james\Desktop\Harry Potter's Revenge.json";
+            var zelda = @"C:\Users\james\Desktop\The Legend of Zelda.json";
+            var firionaVie = @"C:\Users\james\Desktop\The Hunt for Firiona Vie.json";
 
             using (StreamReader r = new StreamReader(firionaVie))
             {
@@ -56,10 +55,10 @@ namespace DungeonCrawler
 
         public abstract class GameObject
         {
-            public Guid ID { get; }
-            public List<Dungeon> Dungeons { get; }
+            private Guid ID { get; }
+            protected List<Dungeon> Dungeons { get; }
 
-            public GameObject()
+            protected GameObject()
             {
                 ID = Guid.NewGuid();
             }
@@ -70,7 +69,7 @@ namespace DungeonCrawler
             public string Name { get; }
             public List<Room> Rooms { get; }
 
-            public Dungeon(string name, List<Room> rooms) : base()
+            public Dungeon(string name, List<Room> rooms)
             {
                 //ID = Guid.NewGuid();
                 Name = name;
@@ -82,7 +81,7 @@ namespace DungeonCrawler
 
         public class Room : GameObject
         {
-            private static Random _randomNumber = new Random();
+            private static readonly Random RandomNumber = new Random();
 
             //public Guid ID { get; }
             public Tuple<int, int> Coordinates { get; }
@@ -91,9 +90,9 @@ namespace DungeonCrawler
             public bool HasEasternWall { get; }
             public bool HasSouthernWall { get; }
             public bool HasWesternWall { get; }
-            public List<Being> Beings { get; set; }
+            public List<Being> Beings { get; }
 
-            public Room(Tuple<int, int> coordinates, bool isStartingLocation, bool hasNorthernWall, bool hasEasternWall, bool hasSouthernWall, bool hasWesternWall) : base()
+            public Room(Tuple<int, int> coordinates, bool isStartingLocation, bool hasNorthernWall, bool hasEasternWall, bool hasSouthernWall, bool hasWesternWall)
             {
                 //ID = Guid.NewGuid();
                 Coordinates = coordinates;
@@ -110,7 +109,7 @@ namespace DungeonCrawler
                 //    Beings.Add(new Player("Test", 1, 100, 100, 0));
                 //}
 
-                for (var i = 0; i <= _randomNumber.Next(0, 3); i++)
+                for (var i = 0; i <= RandomNumber.Next(0, 3); i++)
                 {
                     Beings.Add(new Monster(i.ToString(), 1, 20, 20));
                 }
@@ -120,34 +119,35 @@ namespace DungeonCrawler
         public abstract class Being : GameObject
         {
             //public Guid ID { get; }
-            public string Name { get; set; }
-            public int Level { get; set; }
-            public int MaximumHP { get; set; }
-            public int CurrentHP { get; set; }
-            public Room CurrentRoom { get; set; }
+            public string Name { get; protected set; }
+            public int Level { get; protected set; }
+            public int MaximumHp { get; protected set; }
+            public int CurrentHp { get; protected set; }
+            protected Room CurrentRoom { get; }
             //public List<Item> Items { get; set; }
 
-            protected Being(string name, int level, int maximumHP, int currentHP) : base()
+            protected Being(string name, int level, int maximumHp, int currentHp, Room currentRoom)
             {
                 //ID = Guid.NewGuid();
                 Name = name;
                 Level = level;
-                MaximumHP = maximumHP;
-                CurrentHP = currentHP;
+                MaximumHp = maximumHp;
+                CurrentHp = currentHp;
+                CurrentRoom = currentRoom;
 
                 //currentRoom.Beings.Add(this);
             }
         }
 
         
-        public class Player : Being
+        private class Player : Being
         {
-            public int Experience { get; set; }
-            public Tuple<int, int> CurrentLocation { get; set; }
+            private int Experience { get; }
+            public Tuple<int, int> CurrentLocation { get; private set; }
             //public Dungeon Dungeon { get; set; }
-            public Being Target { get; set; }
+            //private Being Target { get; set; }
 
-            public Player(string name, int level, int currentHP, int maximumHP, int experience) : base(name, level, currentHP, maximumHP)
+            public Player(string name, int level, int currentHp, int maximumHp, int experience) : base(name, level, currentHp, maximumHp)
             {
                 Experience = experience;
             }
@@ -160,96 +160,98 @@ namespace DungeonCrawler
 
             public void MoveEast()
             {
-                Room room = Globals.Dungeon.Rooms.Where(r => r.Coordinates.Equals(CurrentLocation)).FirstOrDefault<Room>();
+                var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
 
-                if (!room.HasEasternWall)
+                if (room != null && !room.HasEasternWall)
                     Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1 + 1, CurrentLocation.Item2);
             }
 
             public void MoveSouth()
             {
-                Room room = Globals.Dungeon.Rooms.Where(r => r.Coordinates.Equals(CurrentLocation)).FirstOrDefault<Room>();
+                var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
 
-                if (!room.HasSouthernWall)
+                if (room != null && !room.HasSouthernWall)
                     Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1, CurrentLocation.Item2 + 1);
             }
 
             public void MoveWest()
             {
-                Room room = Globals.Dungeon.Rooms.Where(r => r.Coordinates.Equals(CurrentLocation)).FirstOrDefault<Room>();
+                var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
 
-                if (!room.HasWesternWall)
+                if (room != null && !room.HasWesternWall)
                     Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1 - 1, CurrentLocation.Item2);
             }
 
-            public DataTable LookAroundRoom()
-            {
-                Room room = Globals.Dungeon.Rooms.Where(r => r.Coordinates == CurrentLocation).FirstOrDefault<Room>();
-                //List<string> targets = new List<string>();
-                DataTable table = new DataTable();
-                table.Columns.Add("Target Name", typeof(string));
-                table.Columns.Add("Target Object", typeof(Being));
+            //public DataTable LookAroundRoom()
+            //{
+            //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => Equals(r.Coordinates, CurrentLocation));
+            //    //List<string> targets = new List<string>();
+            //    var table = new DataTable();
+            //    table.Columns.Add("Target Name", typeof(string));
+            //    table.Columns.Add("Target Object", typeof(Being));
 
-                foreach (Monster monster in room.Beings.Where(b => b.GetType() == typeof(Monster)))
-                {
-                    table.Rows.Add(monster.Name, monster);
-                    //targets.Add(monster.Name);
-                }
+            //    if (room == null) return table;
+            //    foreach (var being in room.Beings.Where(b => b.GetType() == typeof(Monster)))
+            //    {
+            //        var monster = (Monster) being;
+            //        table.Rows.Add(monster.Name, monster);
+            //        //targets.Add(monster.Name);
+            //    }
 
-                return table;
-            }
+            //    return table;
+            //}
 
             // I think this should be split into two methods:
             // 1. Set the monster as the target.
             // 2. Return monster data.
-            public Being TargetMonster(ListBox lst)
-            {
-                Being target = (Being)lst.SelectedValue;
-                Room room = Globals.Dungeon.Rooms.Where(r => r.Coordinates.Equals(CurrentLocation)).FirstOrDefault<Room>();
-                Target = room.Beings.Where(b => b.ID.Equals(target.ID)).FirstOrDefault<Being>();
+            //public Being TargetMonster(ListControl lst)
+            //{
+            //    var target = (Being)lst.SelectedValue;
+            //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
+            //    Target = room.Beings.FirstOrDefault(b => b.ID.Equals(target.ID));
 
-                return Target;
-            }
+            //    return Target;
+            //}
         }
 
-        public class Monster : Being
+        private class Monster : Being
         {
-            public Monster(string name, int level, int maximumHP, int currentHP) : base(name, level, maximumHP, currentHP)
+            public Monster(string name, int level, int maximumHp, int currentHp) : base(name, level, maximumHp, currentHp)
             {
                 Name = $"Monster {name}";
                 Level = level;
-                MaximumHP = maximumHP;
-                CurrentHP = currentHP;
+                MaximumHp = maximumHp;
+                CurrentHp = currentHp;
             }
         }
 
-        public class CharacterLocationMap : IEnumerable<KeyValuePair<Player, Room>>
-        {
-            KeyValuePair<Player, Room> playerLocation = new KeyValuePair<Player, Room>();
+        //public class CharacterLocationMap : IEnumerable<KeyValuePair<Player, Room>>
+        //{
+        //    KeyValuePair<Player, Room> playerLocation = new KeyValuePair<Player, Room>();
 
-            //private readonly IDictionary<Player, Room> _locations = new KayValuePair<Player, Room>();
+        //    //private readonly IDictionary<Player, Room> _locations = new KayValuePair<Player, Room>();
 
-            public Room this[Player player]
-            {
-                get { return playerLocation.Value }
-                set { playerLocation.player, value); }
-            }
+        //    //public Room this[Player player]
+        //    //{
+        //    //    get { return playerLocation.Value }
+        //    //    set { playerLocation.player, value); }
+        //    //}
 
-            public IEnumerator<KeyValuePair<Player, Room>> GetEnumerator()
-            {
-                return playerLocation.GetEnumerator();
-            }
+        //    //public IEnumerator<KeyValuePair<Player, Room>> GetEnumerator()
+        //    //{
+        //    //    return playerLocation.GetEnumerator();
+        //    //}
 
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-        }
+        //    //System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        //    //{
+        //    //    return GetEnumerator();
+        //    //}
+        //}
 
-        public void MonsterDie(Room room, Monster monster)
-        {
-            //room.Monsters.Remove(monster);
-        }
+        //public void MonsterDie(Room room, Monster monster)
+        //{
+        //    //room.Monsters.Remove(monster);
+        //}
 
         private void DrawCharacterLocation(Graphics g, Tuple<int, int> characterLocation)
         {
@@ -304,44 +306,43 @@ namespace DungeonCrawler
 
         private void btnCreateCharacter_Click(object sender, EventArgs e)
         {
-            frmNewGame frm = new frmNewGame();
+            var frm = new FrmNewGame();
             frm.ShowDialog();
 
-            if (frm.StartGameIsSuccessful)
-            {
-                var name = frm.PlayerName;
-                Dungeon dungeon = frm.selectedDungeon;
+            if (!frm.StartGameIsSuccessful) return;
 
-                Player player = new Player(name, 1, 100, 100, 0);
-                dungeon.Rooms.Where(r => r.IsStartingLocation).FirstOrDefault<Room>().Beings.Add(player);
+            var name = frm.PlayerName;
+            var dungeon = frm.SelectedDungeon;
 
-                PopulateCharacterInfo(player);
+            var player = new Player(name, 1, 100, 100, 0);
+            dungeon.Rooms.FirstOrDefault(r => r.IsStartingLocation)?.Beings.Add(player);
 
-                Globals.Player = player;
-                Globals.Dungeon = dungeon;
-                Globals.GameStarted = true;
+            PopulateCharacterInfo(player);
 
-                pnlDungeon.Invalidate();
-            }
+            Globals.Player = player;
+            Globals.Dungeon = dungeon;
+            Globals.GameStarted = true;
+
+            pnlDungeon.Invalidate();
         }
 
-        private void PopulateCharacterInfo(Player player)
+        private void PopulateCharacterInfo(Being player)
         {
             txtCharacterName.Text = player.Name;
             txtCharacterLevel.Text = $"{player.Level.ToString()} / 60";
-            prgCharacterHP.Maximum = player.MaximumHP;
-            prgCharacterHP.Value = player.CurrentHP;
-            txtCharacterCurrentLocation.Text = $"{player.CurrentLocation.Coordinates.Item1.ToString()}, {player.CurrentLocation.Coordinates.Item2.ToString()}";
+            prgCharacterHP.Maximum = player.MaximumHp;
+            prgCharacterHP.Value = player.CurrentHp;
+            //txtCharacterCurrentLocation.Text = $"{player.CurrentLocation.Coordinates.Item1.ToString()}, {player.CurrentLocation.Coordinates.Item2.ToString()}";
         }
 
-        private void UpdateMonsterStats(Monster monster)
-        {
-            txtMonsterID.Text = monster.ID.ToString();
-            txtMonsterName.Text = monster.Name;
-            txtMonsterLevel.Text = $"{monster.Level.ToString()} / 60";
-            prgMonsterHP.Maximum = monster.MaximumHP;
-            prgMonsterHP.Value = monster.CurrentHP;
-        }
+        //private void UpdateMonsterStats(Monster monster)
+        //{
+        //    txtMonsterID.Text = monster.ID.ToString();
+        //    txtMonsterName.Text = monster.Name;
+        //    txtMonsterLevel.Text = $"{monster.Level.ToString()} / 60";
+        //    prgMonsterHP.Maximum = monster.MaximumHp;
+        //    prgMonsterHP.Value = monster.CurrentHp;
+        //}
 
         private void btnNorth_Click(object sender, EventArgs e)
         {
@@ -371,124 +372,124 @@ namespace DungeonCrawler
             pnlDungeon.Invalidate();
         }
 
-        private void roomSearched(Room room)
-        {
+        //private void roomSearched(Room room)
+        //{
 
-        }
+        //}
 
-        private void roomPartiallySearched(Room room)
-        {
+        //private void roomPartiallySearched(Room room)
+        //{
 
-        }
+        //}
 
         private void btnLookAroundRoom_Click(object sender, EventArgs e)
         {
             lstAvailableTargets.Items.Clear();
             txtChatWindow.AppendText("You see: ");
 
-            foreach (DataRow target in Globals.Player.LookAroundRoom().Rows)
-            {
-                txtChatWindow.AppendText($"{target.}\r\n");
-                lstAvailableTargets.Items.Add($"{target.Name}\r\n");
-            }
+            //foreach (DataRow target in Globals.Player.LookAroundRoom().Rows)
+            //{
+            //    //txtChatWindow.AppendText($"{target.}\r\n");
+            //    //lstAvailableTargets.Items.Add($"{target.Name}\r\n");
+            //}
         }
 
-        public void ClearMonsterStats()
-        {
-            txtMonsterID.Clear();
-            txtMonsterName.Clear();
-            txtMonsterLevel.Clear();
-            prgMonsterHP.Value = 0;
-        }
+        //private void ClearMonsterStats()
+        //{
+        //    txtMonsterID.Clear();
+        //    txtMonsterName.Clear();
+        //    txtMonsterLevel.Clear();
+        //    prgMonsterHP.Value = 0;
+        //}
 
         private void btnAttackTarget_Click(object sender, EventArgs e)
         {
             //PlayerAttacksMonster(Globals.Player.Target);
         }
 
-        private void PlayerAttacksMonster(Monster monster)
-        {
-            //var damage = 10;
+        //private void PlayerAttacksMonster(Monster monster)
+        //{
+        //    //var damage = 10;
 
-            //if (damage <= monster.CurrentHP)
-            //{
-            //    monster.CurrentHP -= 10;
-            //    UpdateMonsterStats(monster);
-            //    txtChatWindow.AppendText($"You hit {monster.Name} for 10 damage!\r\n");
+        //    //if (damage <= monster.CurrentHP)
+        //    //{
+        //    //    monster.CurrentHP -= 10;
+        //    //    UpdateMonsterStats(monster);
+        //    //    txtChatWindow.AppendText($"You hit {monster.Name} for 10 damage!\r\n");
 
-            //    if (IsDead(monster))
-            //    {
-            //        MonsterDie(Globals.Dungeon.DungeonLayout[Globals.Player.CurrentLocation], monster);
-            //        ClearMonsterStats();
-            //    }
-            //    else
-            //        MonsterAttacksPlayer(Globals.Player);
-            //}
-            //else if (monster.CurrentHP > 0 && monster.CurrentHP < damage)
-            //{
-            //    monster.CurrentHP = 0;
-            //    MonsterDie(Globals.Dungeon.DungeonLayout[Globals.Player.CurrentLocation], monster);
-            //    ClearMonsterStats();
-            //}
+        //    //    if (IsDead(monster))
+        //    //    {
+        //    //        MonsterDie(Globals.Dungeon.DungeonLayout[Globals.Player.CurrentLocation], monster);
+        //    //        ClearMonsterStats();
+        //    //    }
+        //    //    else
+        //    //        MonsterAttacksPlayer(Globals.Player);
+        //    //}
+        //    //else if (monster.CurrentHP > 0 && monster.CurrentHP < damage)
+        //    //{
+        //    //    monster.CurrentHP = 0;
+        //    //    MonsterDie(Globals.Dungeon.DungeonLayout[Globals.Player.CurrentLocation], monster);
+        //    //    ClearMonsterStats();
+        //    //}
             
-        }
+        //}
 
-        private void MonsterAttacksPlayer(Player player)
-        {
-            //var damage = 10;
+        //private void MonsterAttacksPlayer(Player player)
+        //{
+        //    //var damage = 10;
 
-            //if (damage <= player.CurrentHP)
-            //{
-            //    player.CurrentHP -= 10;
-            //    PopulateCharacterInfo(player);
-            //    txtChatWindow.AppendText($"{player.Target.Name} hit you for 10 damage!\r\n");
+        //    //if (damage <= player.CurrentHP)
+        //    //{
+        //    //    player.CurrentHP -= 10;
+        //    //    PopulateCharacterInfo(player);
+        //    //    txtChatWindow.AppendText($"{player.Target.Name} hit you for 10 damage!\r\n");
 
-            //    if (IsDead(player))
-            //    {
-            //        GameOver();
-            //    }
-            //}
-            //else if (player.CurrentHP > 0 && player.CurrentHP < damage)
-            //{
-            //    player.CurrentHP = 0;
-            //    GameOver();
-            //}
-        }
+        //    //    if (IsDead(player))
+        //    //    {
+        //    //        GameOver();
+        //    //    }
+        //    //}
+        //    //else if (player.CurrentHP > 0 && player.CurrentHP < damage)
+        //    //{
+        //    //    player.CurrentHP = 0;
+        //    //    GameOver();
+        //    //}
+        //}
 
-        private bool IsDead(Monster monster)
-        {
-            if (monster.CurrentHP == 0)
-                return true;
+        //private bool IsDead(Monster monster)
+        //{
+        //    if (monster.CurrentHp == 0)
+        //        return true;
 
-            return false;
-        }
+        //    return false;
+        //}
 
-        private bool IsDead(Player player)
-        {
-            //if (player.CurrentHP == 0)
-            //    return true;
+        //private bool IsDead(Player player)
+        //{
+        //    //if (player.CurrentHP == 0)
+        //    //    return true;
 
-            return false;
-        }
+        //    return false;
+        //}
 
-        private void GameOver()
-        {
-            Globals.Dungeon = null;
-            //Globals.Player = null;
-            Globals.GameStarted = false;
+        //private void GameOver()
+        //{
+        //    Globals.Dungeon = null;
+        //    //Globals.Player = null;
+        //    Globals.GameStarted = false;
 
-            pnlDungeon.Invalidate();
-            ClearPlayerStats();
-            ClearMonsterStats();
-        }
+        //    pnlDungeon.Invalidate();
+        //    ClearPlayerStats();
+        //    ClearMonsterStats();
+        //}
 
-        private void ClearPlayerStats()
-        {
-            txtCharacterName.Clear();
-            txtCharacterLevel.Clear();
-            txtCharacterCurrentLocation.Clear();
-            prgCharacterHP.Value = 0;
-        }
+        //private void ClearPlayerStats()
+        //{
+        //    txtCharacterName.Clear();
+        //    txtCharacterLevel.Clear();
+        //    txtCharacterCurrentLocation.Clear();
+        //    prgCharacterHP.Value = 0;
+        //}
 
         private void lstAvailableTargets_SelectedIndexChanged(object sender, EventArgs e)
         {

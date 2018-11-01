@@ -1,6 +1,6 @@
 ﻿namespace DungeonCrawler
 {
-    partial class frmMainWindow
+    partial class FrmMainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -408,7 +408,7 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // frmMainWindow
+            // FrmMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -421,7 +421,7 @@
             this.Controls.Add(this.grpMonster);
             this.Controls.Add(this.grpCharacter);
             this.Controls.Add(this.grpMovementControls);
-            this.Name = "frmMainWindow";
+            this.Name = "FrmMainWindow";
             this.Text = "Dungeon Crawler";
             this.Load += new System.EventHandler(this.frmMainWindow_Load);
             this.grpMovementControls.ResumeLayout(false);

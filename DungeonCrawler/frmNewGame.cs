@@ -1,27 +1,26 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
-using static DungeonCrawler.frmMainWindow;
+using static DungeonCrawler.FrmMainWindow;
 
 namespace DungeonCrawler
 {
-    public partial class frmNewGame : Form
+    public partial class FrmNewGame : Form
     {
-        public string PlayerName { get; set; }
-        public bool StartGameIsSuccessful { get; set; } = false;
-        public Dungeon selectedDungeon { get; set; }
+        public string PlayerName { get; private set; }
+        public bool StartGameIsSuccessful { get; private set; }
+        public Dungeon SelectedDungeon { get; private set; }
 
-        public frmNewGame()
+        public FrmNewGame()
         {
             InitializeComponent();
         }
 
         private void frmCreateCharacter_Load(object sender, EventArgs e)
         {
-            var folderPath = @"C:\Users\james\Desktop\Dungeon Maps\";
+            const string folderPath = @"C:\Users\james\Desktop\Dungeon Maps\";
             var table = new DataTable();
 
             table.Columns.Add("Dungeon Name", typeof(string));
@@ -32,7 +31,7 @@ namespace DungeonCrawler
                 using (var reader = new StreamReader(file))
                 {
                     var json = reader.ReadToEnd();
-                    Dungeon dungeon = JsonConvert.DeserializeObject<Dungeon>(json);
+                    var dungeon = JsonConvert.DeserializeObject<Dungeon>(json);
                     table.Rows.Add(dungeon.Name, dungeon);
                 }
             }
@@ -46,7 +45,7 @@ namespace DungeonCrawler
         {
             PlayerName = txtCreateCharacter.Text;
             StartGameIsSuccessful = true;
-            selectedDungeon = (Dungeon)cmbDungeonSelector.SelectedValue;
+            SelectedDungeon = (Dungeon)cmbDungeonSelector.SelectedValue;
             Close();
         }
 

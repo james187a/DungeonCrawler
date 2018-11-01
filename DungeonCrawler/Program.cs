@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DungeonCrawler
@@ -16,7 +13,7 @@ namespace DungeonCrawler
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMainWindow());
+            Application.Run(new FrmMainWindow());
         }
     }
 }

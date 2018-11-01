@@ -1,6 +1,6 @@
 ﻿namespace DungeonCrawler
 {
-    partial class frmNewGame
+    partial class FrmNewGame
     {
         /// <summary>
         /// Required designer variable.
@@ -80,7 +80,7 @@
             this.cmbDungeonSelector.Size = new System.Drawing.Size(260, 21);
             this.cmbDungeonSelector.TabIndex = 4;
             // 
-            // frmNewGame
+            // FrmNewGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -92,7 +92,7 @@
             this.Controls.Add(this.lblEnterCharacterName);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmNewGame";
+            this.Name = "FrmNewGame";
             this.Text = "New Game";
             this.Load += new System.EventHandler(this.frmCreateCharacter_Load);
             this.ResumeLayout(false);
