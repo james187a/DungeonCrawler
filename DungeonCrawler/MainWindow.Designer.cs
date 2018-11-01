@@ -61,11 +61,9 @@
             this.btnLookAroundRoom = new System.Windows.Forms.Button();
             this.btnNewGame = new System.Windows.Forms.Button();
             this.pnlDungeon = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.grpMovementControls.SuspendLayout();
             this.grpCharacter.SuspendLayout();
             this.grpMonster.SuspendLayout();
-            this.grpCharacterStats.SuspendLayout();
             this.grpAvailableTargets.SuspendLayout();
             this.grpChatWindow.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -302,7 +300,6 @@
             // 
             // grpCharacterStats
             // 
-            this.grpCharacterStats.Controls.Add(this.button1);
             this.grpCharacterStats.Location = new System.Drawing.Point(12, 12);
             this.grpCharacterStats.Name = "grpCharacterStats";
             this.grpCharacterStats.Size = new System.Drawing.Size(224, 172);
@@ -398,16 +395,6 @@
             this.pnlDungeon.TabIndex = 8;
             this.pnlDungeon.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDungeon_Paint);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(39, 46);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FrmMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -429,7 +416,6 @@
             this.grpCharacter.PerformLayout();
             this.grpMonster.ResumeLayout(false);
             this.grpMonster.PerformLayout();
-            this.grpCharacterStats.ResumeLayout(false);
             this.grpAvailableTargets.ResumeLayout(false);
             this.grpChatWindow.ResumeLayout(false);
             this.grpChatWindow.PerformLayout();
@@ -472,7 +458,6 @@
         private System.Windows.Forms.TextBox txtMonsterID;
         private System.Windows.Forms.Button btnAttackTarget;
         private System.Windows.Forms.ListBox lstAvailableTargets;
-        private System.Windows.Forms.Button button1;
     }
 }
 

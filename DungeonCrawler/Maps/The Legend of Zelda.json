@@ -1,12 +1,15 @@
 {
   "Name": "The Legend of Zelda",
+  "StartingLocation": {
+    "LocX": 0,
+    "LocY": 0
+  },
   "Rooms": [
     {
       "Coordinates": {
-        "Item1": 0,
-        "Item2": 0
+        "LocX": 0,
+        "LocY": 0
       },
-      "IsStartingLocation": true,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -14,10 +17,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 1,
-        "Item2": 0
+        "LocX": 1,
+        "LocY": 0
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -25,10 +27,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 2,
-        "Item2": 0
+        "LocX": 2,
+        "LocY": 0
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -36,10 +37,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 3,
-        "Item2": 0
+        "LocX": 3,
+        "LocY": 0
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -47,10 +47,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 4,
-        "Item2": 0
+        "LocX": 4,
+        "LocY": 0
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -58,10 +57,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 5,
-        "Item2": 0
+        "LocX": 5,
+        "LocY": 0
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": true,
       "HasSouthernWall": false,
@@ -69,10 +67,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 5,
-        "Item2": 1
+        "LocX": 5,
+        "LocY": 1
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": false,
       "HasEasternWall": true,
       "HasSouthernWall": true,
@@ -80,10 +77,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 4,
-        "Item2": 1
+        "LocX": 4,
+        "LocY": 1
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": false,
@@ -91,10 +87,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 4,
-        "Item2": 2
+        "LocX": 4,
+        "LocY": 2
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": false,
       "HasEasternWall": true,
       "HasSouthernWall": true,
@@ -102,10 +97,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 3,
-        "Item2": 2
+        "LocX": 3,
+        "LocY": 2
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": false,
@@ -113,10 +107,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 3,
-        "Item2": 3
+        "LocX": 3,
+        "LocY": 3
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": false,
       "HasEasternWall": true,
       "HasSouthernWall": true,
@@ -124,10 +117,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 2,
-        "Item2": 3
+        "LocX": 2,
+        "LocY": 3
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": false,
@@ -135,10 +127,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 2,
-        "Item2": 4
+        "LocX": 2,
+        "LocY": 4
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": false,
       "HasEasternWall": true,
       "HasSouthernWall": true,
@@ -146,10 +137,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 1,
-        "Item2": 4
+        "LocX": 1,
+        "LocY": 4
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": false,
@@ -157,10 +147,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 1,
-        "Item2": 5
+        "LocX": 1,
+        "LocY": 5
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": false,
       "HasEasternWall": true,
       "HasSouthernWall": true,
@@ -168,10 +157,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 0,
-        "Item2": 5
+        "LocX": 0,
+        "LocY": 5
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": false,
@@ -179,10 +167,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 0,
-        "Item2": 6
+        "LocX": 0,
+        "LocY": 6
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": false,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -190,10 +177,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 1,
-        "Item2": 6
+        "LocX": 1,
+        "LocY": 6
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -201,10 +187,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 2,
-        "Item2": 6
+        "LocX": 2,
+        "LocY": 6
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -212,10 +197,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 3,
-        "Item2": 6
+        "LocX": 3,
+        "LocY": 6
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -223,10 +207,9 @@
     },
     {
       "Coordinates": {
-        "Item1": 4,
-        "Item2": 6
+        "LocX": 4,
+        "LocY": 6
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": false,
       "HasSouthernWall": true,
@@ -234,14 +217,13 @@
     },
     {
       "Coordinates": {
-        "Item1": 5,
-        "Item2": 6
+        "LocX": 5,
+        "LocY": 6
       },
-      "IsStartingLocation": false,
       "HasNorthernWall": true,
       "HasEasternWall": true,
       "HasSouthernWall": true,
       "HasWesternWall": false
     }
- ]
+  ]
 }

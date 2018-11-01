@@ -3,13 +3,17 @@
     public class Player : IBeing
     {
         public string Name { get; set; }
-        public int HealthPoints { get; set; }
+        public int Level { get; set; }
+        public int CurrentHitPoints { get; set; }
+        public int MaxHitPoints { get; set; }
         public Room CurrentRoom { get; set; }
 
-        public Player(string name, int healthPoints, Room currentRoom)
+        public Player(string name, int level, int maxHitPoints, Room currentRoom)
         {
             Name = name;
-            HealthPoints = healthPoints;
+            Level = level;
+            CurrentHitPoints = maxHitPoints;
+            MaxHitPoints = maxHitPoints;
             CurrentRoom = currentRoom;
         }
 

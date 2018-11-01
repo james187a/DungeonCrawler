@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using DungeonCrawler.Classes;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using DungeonCrawler.Classes;
 
 namespace DungeonCrawler
 {
@@ -21,13 +17,6 @@ namespace DungeonCrawler
             pnlDungeon.Paint += pnlDungeon_Paint;
         }
 
-        //private static class Globals
-        //{
-        //    public static Dungeon Dungeon { get; set; }
-        //    public static Player Player { get; set; }
-        //    public static bool GameStarted { get; set; }
-        //}
-
         private void pnlDungeon_Paint(object sender, PaintEventArgs e)
         {
             if (Globals.GameStarted)
@@ -38,112 +27,28 @@ namespace DungeonCrawler
             }
         }
 
-        private void StartGame()
-        {
-            var harryPotter = @"C:\Users\james\Desktop\Harry Potter's Revenge.json";
-            var zelda = @"C:\Users\james\Desktop\The Legend of Zelda.json";
-            var firionaVie = @"C:\Users\james\Desktop\The Hunt for Firiona Vie.json";
-
-            using (StreamReader r = new StreamReader(firionaVie))
-            {
-                var json = r.ReadToEnd();
-                var dungeon = JsonConvert.DeserializeObject<Dungeon>(json);
-                Globals.Dungeon = dungeon;
-                Globals.GameStarted = true;
-                pnlDungeon.Invalidate();
-            }
-        }
-
-        private void LoadDungeon()
-        {
-
-        }
-
-        public abstract class GameObject
-        {
-            private Guid ID { get; }
-            protected List<Dungeon> Dungeons { get; }
-
-            protected GameObject()
-            {
-                ID = Guid.NewGuid();
-            }
-        }
-
-        //public class Dungeon : GameObject
+        //public abstract class Being : GameObject
         //{
-        //    public string Name { get; }
-        //    public List<Room> Rooms { get; }
+        //    //public Guid ID { get; }
+        //    public string Name { get; protected set; }
+        //    public int Level { get; protected set; }
+        //    public int MaximumHp { get; protected set; }
+        //    public int CurrentHp { get; protected set; }
+        //    protected Room CurrentRoom { get; }
+        //    //public List<Item> Items { get; set; }
 
-        //    public Dungeon(string name, List<Room> rooms)
+        //    protected Being(string name, int level, int maximumHp, int currentHp, Room currentRoom)
         //    {
         //        //ID = Guid.NewGuid();
         //        Name = name;
-        //        Rooms = rooms;
+        //        Level = level;
+        //        MaximumHp = maximumHp;
+        //        CurrentHp = currentHp;
+        //        CurrentRoom = currentRoom;
 
-        //        Dungeons.Add(this);
+        //        //currentRoom.Beings.Add(this);
         //    }
         //}
-
-        //public class Room : GameObject
-        //{
-        //    private static readonly Random RandomNumber = new Random();
-
-        //    //public Guid ID { get; }
-        //    public Tuple<int, int> Coordinates { get; }
-        //    public bool IsStartingLocation { get; }
-        //    public bool HasNorthernWall { get; }
-        //    public bool HasEasternWall { get; }
-        //    public bool HasSouthernWall { get; }
-        //    public bool HasWesternWall { get; }
-        //    public List<Being> Beings { get; }
-
-        //    public Room(Tuple<int, int> coordinates, bool isStartingLocation, bool hasNorthernWall, bool hasEasternWall, bool hasSouthernWall, bool hasWesternWall)
-        //    {
-        //        //ID = Guid.NewGuid();
-        //        Coordinates = coordinates;
-        //        IsStartingLocation = isStartingLocation;
-        //        HasNorthernWall = hasNorthernWall;
-        //        HasEasternWall = hasEasternWall;
-        //        HasSouthernWall = hasSouthernWall;
-        //        HasWesternWall = hasWesternWall;
-
-        //        Beings = new List<Being>();
-
-        //        //if (IsStartingLocation)
-        //        //{
-        //        //    Beings.Add(new Player("Test", 1, 100, 100, 0));
-        //        //}
-
-        //        for (var i = 0; i <= RandomNumber.Next(0, 3); i++)
-        //        {
-        //            Beings.Add(new Monster(i.ToString(), 1, 20, 20));
-        //        }
-        //    }
-        //}
-
-        public abstract class Being : GameObject
-        {
-            //public Guid ID { get; }
-            public string Name { get; protected set; }
-            public int Level { get; protected set; }
-            public int MaximumHp { get; protected set; }
-            public int CurrentHp { get; protected set; }
-            protected Room CurrentRoom { get; }
-            //public List<Item> Items { get; set; }
-
-            protected Being(string name, int level, int maximumHp, int currentHp, Room currentRoom)
-            {
-                //ID = Guid.NewGuid();
-                Name = name;
-                Level = level;
-                MaximumHp = maximumHp;
-                CurrentHp = currentHp;
-                CurrentRoom = currentRoom;
-
-                //currentRoom.Beings.Add(this);
-            }
-        }
 
 
         //private class Player : Being
@@ -156,36 +61,6 @@ namespace DungeonCrawler
         //public Player(string name, int level, int currentHp, int maximumHp, int experience) : base(name, level, currentHp, maximumHp)
         //{
         //    Experience = experience;
-        //}
-
-        //public void MoveNorth()
-        //{
-        //    if (!CurrentRoom.HasNorthernWall)
-        //        Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1, CurrentLocation.Item2 - 1);
-        //}
-
-        //public void MoveEast()
-        //{
-        //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
-
-        //    if (room != null && !room.HasEasternWall)
-        //        Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1 + 1, CurrentLocation.Item2);
-        //}
-
-        //public void MoveSouth()
-        //{
-        //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
-
-        //    if (room != null && !room.HasSouthernWall)
-        //        Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1, CurrentLocation.Item2 + 1);
-        //}
-
-        //public void MoveWest()
-        //{
-        //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => r.Coordinates.Equals(CurrentLocation));
-
-        //    if (room != null && !room.HasWesternWall)
-        //        Globals.Player.CurrentLocation = new Tuple<int, int>(CurrentLocation.Item1 - 1, CurrentLocation.Item2);
         //}
 
         //public DataTable LookAroundRoom()
@@ -321,7 +196,7 @@ namespace DungeonCrawler
             var dungeon = frm.SelectedDungeon;
             var currentRoom = dungeon.GetStartingRoom();
 
-            var player = new Player(name, 100, currentRoom);
+            var player = new Player(name, 1, 100, currentRoom);
             //dungeon.Rooms.FirstOrDefault(r => r.IsStartingLocation)?.Beings.Add(player);
 
             //PopulateCharacterInfo(player);
@@ -333,12 +208,12 @@ namespace DungeonCrawler
             pnlDungeon.Invalidate();
         }
 
-        private void PopulateCharacterInfo(Being player)
+        private void PopulateCharacterInfo(Player player)
         {
             txtCharacterName.Text = player.Name;
             txtCharacterLevel.Text = $"{player.Level.ToString()} / 60";
-            prgCharacterHP.Maximum = player.MaximumHp;
-            prgCharacterHP.Value = player.CurrentHp;
+            prgCharacterHP.Maximum = player.MaxHitPoints;
+            prgCharacterHP.Value = player.CurrentHitPoints;
             //txtCharacterCurrentLocation.Text = $"{player.CurrentLocation.Coordinates.Item1.ToString()}, {player.CurrentLocation.Coordinates.Item2.ToString()}";
         }
 
@@ -503,11 +378,6 @@ namespace DungeonCrawler
             //Monster monster = Globals.Player.TargetMonster((ListBox) sender);
 
             //UpdateMonsterStats(monster);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            StartGame();
         }
     }
 }
