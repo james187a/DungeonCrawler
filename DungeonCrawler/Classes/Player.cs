@@ -1,4 +1,7 @@
-﻿namespace DungeonCrawler.Classes
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace DungeonCrawler.Classes
 {
     public class Player : IBeing
     {
@@ -48,6 +51,11 @@
         private void SetRoom(Coordinates coordinates)
         {
             CurrentRoom = Globals.Dungeon.GetRoom(coordinates);
+        }
+
+        public IEnumerable<IBeing> LookAroundRoom()
+        {
+            return Globals.Monsters.Where(x => x.CurrentRoom.Equals(CurrentRoom));
         }
     }
 }

@@ -63,24 +63,7 @@ namespace DungeonCrawler
         //    Experience = experience;
         //}
 
-        //public DataTable LookAroundRoom()
-        //{
-        //    var room = Globals.Dungeon.Rooms.FirstOrDefault(r => Equals(r.Coordinates, CurrentLocation));
-        //    //List<string> targets = new List<string>();
-        //    var table = new DataTable();
-        //    table.Columns.Add("Target Name", typeof(string));
-        //    table.Columns.Add("Target Object", typeof(Being));
-
-        //    if (room == null) return table;
-        //    foreach (var being in room.Beings.Where(b => b.GetType() == typeof(Monster)))
-        //    {
-        //        var monster = (Monster) being;
-        //        table.Rows.Add(monster.Name, monster);
-        //        //targets.Add(monster.Name);
-        //    }
-
-        //    return table;
-        //}
+        
 
         // I think this should be split into two methods:
         // 1. Set the monster as the target.
@@ -207,6 +190,8 @@ namespace DungeonCrawler
             pnlDungeon.Invalidate();
         }
 
+        public static Random randomNumber = new Random();
+
         private void PopulateDungeonWithMonsters(Dungeon dungeon)
         {
             Globals.Monsters = new List<Monster>();
@@ -214,7 +199,6 @@ namespace DungeonCrawler
 
             foreach (var room in dungeon.Rooms)
             {
-                var randomNumber = new Random();
                 var temp2 = 0;
 
                 for (var i = 0; i <= randomNumber.Next(0, 3); i++)
@@ -290,11 +274,11 @@ namespace DungeonCrawler
             lstAvailableTargets.Items.Clear();
             txtChatWindow.AppendText("You see: ");
 
-            //foreach (DataRow target in Globals.Player.LookAroundRoom().Rows)
-            //{
-            //    //txtChatWindow.AppendText($"{target.}\r\n");
-            //    //lstAvailableTargets.Items.Add($"{target.Name}\r\n");
-            //}
+            foreach (var target in Globals.Player.LookAroundRoom())
+            {
+                txtChatWindow.AppendText($"{target.Name}\r\n");
+                lstAvailableTargets.Items.Add($"{target.Name}\r\n");
+            }
         }
 
         //private void ClearMonsterStats()
