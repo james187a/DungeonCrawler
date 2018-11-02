@@ -1,5 +1,6 @@
 ﻿using DungeonCrawler.Classes;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -197,12 +198,34 @@ namespace DungeonCrawler
             var player = new Player(name, 1, 100, currentRoom);
 
             PopulateCharacterInfo(player);
+            PopulateDungeonWithMonsters(dungeon);
 
             Globals.Player = player;
             Globals.Dungeon = dungeon;
             Globals.GameStarted = true;
 
             pnlDungeon.Invalidate();
+        }
+
+        private void PopulateDungeonWithMonsters(Dungeon dungeon)
+        {
+            Globals.Monsters = new List<Monster>();
+            var temp1 = 0;
+
+            foreach (var room in dungeon.Rooms)
+            {
+                var randomNumber = new Random();
+                var temp2 = 0;
+
+                for (var i = 0; i <= randomNumber.Next(0, 3); i++)
+                {
+                    var monster = new Monster($"Monster{temp1}{temp2}", 1, 10, room);
+                    Globals.Monsters.Add(monster);
+                    temp2++;
+                }
+
+                temp1++;
+            }
         }
 
         private void PopulateCharacterInfo(IBeing player)
