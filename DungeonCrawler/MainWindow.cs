@@ -12,19 +12,18 @@ namespace DungeonCrawler
             InitializeComponent();
         }
 
-        private void frmMainWindow_Load(object sender, EventArgs e)
+        private void FrmMainWindow_Load(object sender, EventArgs e)
         {
-            pnlDungeon.Paint += pnlDungeon_Paint;
+            pnlDungeon.Paint += PnlDungeon_Paint;
         }
 
-        private void pnlDungeon_Paint(object sender, PaintEventArgs e)
+        private void PnlDungeon_Paint(object sender, PaintEventArgs e)
         {
-            if (Globals.GameStarted)
-            {
-                Graphics g = e.Graphics;
-                DrawDungeon(g, Globals.Dungeon);
-                DrawCharacterLocation(g, Globals.Player.CurrentRoom.Coordinates);
-            }
+            if (!Globals.GameStarted) return;
+
+            var g = e.Graphics;
+            DrawDungeon(g, Globals.Dungeon);
+            DrawCharacterLocation(g, Globals.Player.CurrentRoom.Coordinates);
         }
 
         //public abstract class Being : GameObject
@@ -134,7 +133,7 @@ namespace DungeonCrawler
         //    //room.Monsters.Remove(monster);
         //}
 
-        private void DrawCharacterLocation(Graphics g, Coordinates characterLocation)
+        private static void DrawCharacterLocation(Graphics g, Coordinates characterLocation)
         {
             var point = new Point(characterLocation.LocX * 50 + 10, characterLocation.LocY * 50 + 10);
             var size = new Size(30, 30);
@@ -144,40 +143,39 @@ namespace DungeonCrawler
             g.FillRectangle(brush, rectangle);
         }
 
-        private void DrawRoom(Graphics g, Room r)
+        private static void DrawRoom(Graphics g, Room r)
         {
             var room = r;
-            int locX = room.Coordinates.LocX;
-            int locY = room.Coordinates.LocY;
+            var locX = room.Coordinates.LocX;
+            var locY = room.Coordinates.LocY;
 
-            if ((locX >= 0) && (locX <= 5) && (locY >= 0) && (locY <= 6))
-            {
-                var wallPen = new Pen(Color.Black, 1);
-                var doorPen = new Pen(Color.White, 1);
+            if (locX < 0 || locX > 5 || locY < 0 || locY > 6) return;
 
-                if (room.HasNorthernWall)
-                    g.DrawLine(wallPen, locX * 50, locY * 50, locX * 50 + 49, locY * 50);
-                else if (!room.HasNorthernWall)
-                    g.DrawLine(doorPen, locX * 50 + 1, locY * 50, locX * 50 + 49, locY * 50);                
+            var wallPen = new Pen(Color.Black, 1);
+            var doorPen = new Pen(Color.White, 1);
 
-                if (room.HasEasternWall)
-                    g.DrawLine(wallPen, locX * 50 + 49, locY * 50, locX * 50 + 49, locY * 50 + 49);
-                else if (!room.HasEasternWall)
-                    g.DrawLine(doorPen, locX * 50 + 49, locY * 50 + 1, locX * 50 + 49, locY * 50 + 49);       
+            if (room.HasNorthernWall)
+                g.DrawLine(wallPen, locX * 50, locY * 50, locX * 50 + 49, locY * 50);
+            else if (!room.HasNorthernWall)
+                g.DrawLine(doorPen, locX * 50 + 1, locY * 50, locX * 50 + 49, locY * 50);                
 
-                if (room.HasSouthernWall)
-                    g.DrawLine(wallPen, locX * 50, locY * 50 + 49, locX * 50 + 49, locY * 50 + 49);
-                else if (!room.HasSouthernWall)
-                    g.DrawLine(doorPen, locX * 50 + 1, locY * 50 + 49, locX * 50 + 48, locY * 50 + 49);                
+            if (room.HasEasternWall)
+                g.DrawLine(wallPen, locX * 50 + 49, locY * 50, locX * 50 + 49, locY * 50 + 49);
+            else if (!room.HasEasternWall)
+                g.DrawLine(doorPen, locX * 50 + 49, locY * 50 + 1, locX * 50 + 49, locY * 50 + 49);       
 
-                if (room.HasWesternWall)
-                    g.DrawLine(wallPen, locX * 50, locY * 50, locX * 50, locY * 50 + 49);
-                else if (!room.HasWesternWall)
-                    g.DrawLine(doorPen, locX * 50, locY * 50 + 1, locX * 50, locY * 50 + 48);                
-            }
+            if (room.HasSouthernWall)
+                g.DrawLine(wallPen, locX * 50, locY * 50 + 49, locX * 50 + 49, locY * 50 + 49);
+            else if (!room.HasSouthernWall)
+                g.DrawLine(doorPen, locX * 50 + 1, locY * 50 + 49, locX * 50 + 48, locY * 50 + 49);                
+
+            if (room.HasWesternWall)
+                g.DrawLine(wallPen, locX * 50, locY * 50, locX * 50, locY * 50 + 49);
+            else if (!room.HasWesternWall)
+                g.DrawLine(doorPen, locX * 50, locY * 50 + 1, locX * 50, locY * 50 + 48);
         }
 
-        private void DrawDungeon(Graphics g, Dungeon dungeon)
+        private static void DrawDungeon(Graphics g, Dungeon dungeon)
         {
             foreach (var room in dungeon.Rooms)
             {
@@ -185,7 +183,7 @@ namespace DungeonCrawler
             }
         }
 
-        private void btnCreateCharacter_Click(object sender, EventArgs e)
+        private void BtnCreateCharacter_Click(object sender, EventArgs e)
         {
             var frm = new FrmNewGame();
             frm.ShowDialog();
@@ -208,9 +206,10 @@ namespace DungeonCrawler
             pnlDungeon.Invalidate();
         }
 
-        private void PopulateCharacterInfo(Player player)
+        private void PopulateCharacterInfo(IBeing player)
         {
             txtCharacterName.Text = player.Name;
+            // ReSharper disable once LocalizableElement
             txtCharacterLevel.Text = $"{player.Level.ToString()} / 60";
             prgCharacterHP.Maximum = player.MaxHitPoints;
             prgCharacterHP.Value = player.CurrentHitPoints;
@@ -226,28 +225,28 @@ namespace DungeonCrawler
         //    prgMonsterHP.Value = monster.CurrentHp;
         //}
 
-        private void btnNorth_Click(object sender, EventArgs e)
+        private void BtnNorth_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveNorth();
             //PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
-        private void btnEast_Click(object sender, EventArgs e)
+        private void BtnEast_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveEast();
             //PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
-        private void btnSouth_Click(object sender, EventArgs e)
+        private void BtnSouth_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveSouth();
             //PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
-        private void btnWest_Click(object sender, EventArgs e)
+        private void BtnWest_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveWest();
             //PopulateCharacterInfo(Globals.Player);
@@ -264,7 +263,7 @@ namespace DungeonCrawler
 
         //}
 
-        private void btnLookAroundRoom_Click(object sender, EventArgs e)
+        private void BtnLookAroundRoom_Click(object sender, EventArgs e)
         {
             lstAvailableTargets.Items.Clear();
             txtChatWindow.AppendText("You see: ");
@@ -284,7 +283,7 @@ namespace DungeonCrawler
         //    prgMonsterHP.Value = 0;
         //}
 
-        private void btnAttackTarget_Click(object sender, EventArgs e)
+        private void BtnAttackTarget_Click(object sender, EventArgs e)
         {
             //PlayerAttacksMonster(Globals.Player.Target);
         }
@@ -373,7 +372,7 @@ namespace DungeonCrawler
         //    prgCharacterHP.Value = 0;
         //}
 
-        private void lstAvailableTargets_SelectedIndexChanged(object sender, EventArgs e)
+        private void LstAvailableTargets_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Monster monster = Globals.Player.TargetMonster((ListBox) sender);
 

@@ -2,8 +2,8 @@
 {
     public class Coordinates
     {
-        public int LocX { get; set; }
-        public int LocY { get; set; }
+        public int LocX { get; }
+        public int LocY { get; }
 
         public Coordinates(int locX, int locY)
         {

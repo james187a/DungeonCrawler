@@ -59,7 +59,7 @@
             this.btnNewGame.TabIndex = 2;
             this.btnNewGame.Text = "Begin!";
             this.btnNewGame.UseVisualStyleBackColor = true;
-            this.btnNewGame.Click += new System.EventHandler(this.btnAcceptName_Click);
+            this.btnNewGame.Click += new System.EventHandler(this.BtnAcceptName_Click);
             // 
             // btnCancelName
             // 
@@ -69,7 +69,7 @@
             this.btnCancelName.TabIndex = 3;
             this.btnCancelName.Text = "Cancel";
             this.btnCancelName.UseVisualStyleBackColor = true;
-            this.btnCancelName.Click += new System.EventHandler(this.btnCancelName_Click);
+            this.btnCancelName.Click += new System.EventHandler(this.BtnCancelName_Click);
             // 
             // cmbDungeonSelector
             // 
@@ -94,7 +94,7 @@
             this.MinimizeBox = false;
             this.Name = "FrmNewGame";
             this.Text = "New Game";
-            this.Load += new System.EventHandler(this.frmCreateCharacter_Load);
+            this.Load += new System.EventHandler(this.FrmCreateCharacter_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

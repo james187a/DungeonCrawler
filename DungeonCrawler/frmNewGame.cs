@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using DungeonCrawler.Classes;
+using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
-using static DungeonCrawler.FrmMainWindow;
-using DungeonCrawler.Classes;
 
 namespace DungeonCrawler
 {
@@ -19,7 +18,7 @@ namespace DungeonCrawler
             InitializeComponent();
         }
 
-        private void frmCreateCharacter_Load(object sender, EventArgs e)
+        private void FrmCreateCharacter_Load(object sender, EventArgs e)
         {
             const string folderPath = @"Maps\";
             var table = new DataTable();
@@ -42,7 +41,7 @@ namespace DungeonCrawler
             cmbDungeonSelector.DataSource = table;
         }
 
-        private void btnAcceptName_Click(object sender, EventArgs e)
+        private void BtnAcceptName_Click(object sender, EventArgs e)
         {
             PlayerName = txtCreateCharacter.Text;
             StartGameIsSuccessful = true;
@@ -50,7 +49,7 @@ namespace DungeonCrawler
             Close();
         }
 
-        private void btnCancelName_Click(object sender, EventArgs e)
+        private void BtnCancelName_Click(object sender, EventArgs e)
         {
             Close();
         }

@@ -2,10 +2,10 @@
 {
     public class Player : IBeing
     {
-        public string Name { get; set; }
-        public int Level { get; set; }
-        public int CurrentHitPoints { get; set; }
-        public int MaxHitPoints { get; set; }
+        public string Name { get; }
+        public int Level { get; }
+        public int CurrentHitPoints { get; }
+        public int MaxHitPoints { get; }
         public Room CurrentRoom { get; set; }
 
         public Player(string name, int level, int maxHitPoints, Room currentRoom)

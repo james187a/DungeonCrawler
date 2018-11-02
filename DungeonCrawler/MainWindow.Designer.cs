@@ -90,7 +90,7 @@
             this.btnSouth.TabIndex = 3;
             this.btnSouth.Text = "South";
             this.btnSouth.UseVisualStyleBackColor = true;
-            this.btnSouth.Click += new System.EventHandler(this.btnSouth_Click);
+            this.btnSouth.Click += new System.EventHandler(this.BtnSouth_Click);
             // 
             // btnWest
             // 
@@ -100,7 +100,7 @@
             this.btnWest.TabIndex = 2;
             this.btnWest.Text = "West";
             this.btnWest.UseVisualStyleBackColor = true;
-            this.btnWest.Click += new System.EventHandler(this.btnWest_Click);
+            this.btnWest.Click += new System.EventHandler(this.BtnWest_Click);
             // 
             // btnEast
             // 
@@ -110,7 +110,7 @@
             this.btnEast.TabIndex = 1;
             this.btnEast.Text = "East";
             this.btnEast.UseVisualStyleBackColor = true;
-            this.btnEast.Click += new System.EventHandler(this.btnEast_Click);
+            this.btnEast.Click += new System.EventHandler(this.BtnEast_Click);
             // 
             // btnNorth
             // 
@@ -120,7 +120,7 @@
             this.btnNorth.TabIndex = 0;
             this.btnNorth.Text = "North";
             this.btnNorth.UseVisualStyleBackColor = true;
-            this.btnNorth.Click += new System.EventHandler(this.btnNorth_Click);
+            this.btnNorth.Click += new System.EventHandler(this.BtnNorth_Click);
             // 
             // grpCharacter
             // 
@@ -324,7 +324,7 @@
             this.lstAvailableTargets.Name = "lstAvailableTargets";
             this.lstAvailableTargets.Size = new System.Drawing.Size(212, 147);
             this.lstAvailableTargets.TabIndex = 0;
-            this.lstAvailableTargets.SelectedIndexChanged += new System.EventHandler(this.lstAvailableTargets_SelectedIndexChanged);
+            this.lstAvailableTargets.SelectedIndexChanged += new System.EventHandler(this.LstAvailableTargets_SelectedIndexChanged);
             // 
             // grpChatWindow
             // 
@@ -365,7 +365,7 @@
             this.btnAttackTarget.TabIndex = 4;
             this.btnAttackTarget.Text = "Attack Target";
             this.btnAttackTarget.UseVisualStyleBackColor = true;
-            this.btnAttackTarget.Click += new System.EventHandler(this.btnAttackTarget_Click);
+            this.btnAttackTarget.Click += new System.EventHandler(this.BtnAttackTarget_Click);
             // 
             // btnLookAroundRoom
             // 
@@ -375,7 +375,7 @@
             this.btnLookAroundRoom.TabIndex = 2;
             this.btnLookAroundRoom.Text = "Look Around Room";
             this.btnLookAroundRoom.UseVisualStyleBackColor = true;
-            this.btnLookAroundRoom.Click += new System.EventHandler(this.btnLookAroundRoom_Click);
+            this.btnLookAroundRoom.Click += new System.EventHandler(this.BtnLookAroundRoom_Click);
             // 
             // btnNewGame
             // 
@@ -385,7 +385,7 @@
             this.btnNewGame.TabIndex = 1;
             this.btnNewGame.Text = "New Game";
             this.btnNewGame.UseVisualStyleBackColor = true;
-            this.btnNewGame.Click += new System.EventHandler(this.btnCreateCharacter_Click);
+            this.btnNewGame.Click += new System.EventHandler(this.BtnCreateCharacter_Click);
             // 
             // pnlDungeon
             // 
@@ -393,7 +393,7 @@
             this.pnlDungeon.Name = "pnlDungeon";
             this.pnlDungeon.Size = new System.Drawing.Size(300, 350);
             this.pnlDungeon.TabIndex = 8;
-            this.pnlDungeon.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDungeon_Paint);
+            this.pnlDungeon.Paint += new System.Windows.Forms.PaintEventHandler(this.PnlDungeon_Paint);
             // 
             // FrmMainWindow
             // 
@@ -410,7 +410,7 @@
             this.Controls.Add(this.grpMovementControls);
             this.Name = "FrmMainWindow";
             this.Text = "Dungeon Crawler";
-            this.Load += new System.EventHandler(this.frmMainWindow_Load);
+            this.Load += new System.EventHandler(this.FrmMainWindow_Load);
             this.grpMovementControls.ResumeLayout(false);
             this.grpCharacter.ResumeLayout(false);
             this.grpCharacter.PerformLayout();

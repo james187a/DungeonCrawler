@@ -6,7 +6,7 @@ namespace DungeonCrawler.Classes
     public class Dungeon
     {
         public string Name { get; }
-        public Coordinates StartingLocation { get; }
+        private Coordinates StartingLocation { get; }
         public List<Room> Rooms { get; }
 
         public Dungeon(string name, Coordinates startingLocation, List<Room> rooms)
