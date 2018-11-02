@@ -195,9 +195,8 @@ namespace DungeonCrawler
             var currentRoom = dungeon.GetStartingRoom();
 
             var player = new Player(name, 1, 100, currentRoom);
-            //dungeon.Rooms.FirstOrDefault(r => r.IsStartingLocation)?.Beings.Add(player);
 
-            //PopulateCharacterInfo(player);
+            PopulateCharacterInfo(player);
 
             Globals.Player = player;
             Globals.Dungeon = dungeon;
@@ -213,7 +212,7 @@ namespace DungeonCrawler
             txtCharacterLevel.Text = $"{player.Level.ToString()} / 60";
             prgCharacterHP.Maximum = player.MaxHitPoints;
             prgCharacterHP.Value = player.CurrentHitPoints;
-            //txtCharacterCurrentLocation.Text = $"{player.CurrentLocation.Coordinates.Item1.ToString()}, {player.CurrentLocation.Coordinates.Item2.ToString()}";
+            txtCharacterCurrentLocation.Text = $"{player.CurrentRoom.Coordinates.LocX.ToString()}, {player.CurrentRoom.Coordinates.LocY.ToString()}";
         }
 
         //private void UpdateMonsterStats(Monster monster)
@@ -228,28 +227,28 @@ namespace DungeonCrawler
         private void BtnNorth_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveNorth();
-            //PopulateCharacterInfo(Globals.Player);
+            PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
         private void BtnEast_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveEast();
-            //PopulateCharacterInfo(Globals.Player);
+            PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
         private void BtnSouth_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveSouth();
-            //PopulateCharacterInfo(Globals.Player);
+            PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
         private void BtnWest_Click(object sender, EventArgs e)
         {
             Globals.Player.MoveWest();
-            //PopulateCharacterInfo(Globals.Player);
+            PopulateCharacterInfo(Globals.Player);
             pnlDungeon.Invalidate();
         }
 
